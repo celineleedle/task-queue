@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/celineleedle/task-queue/internal/model"
 	"github.com/celineleedle/task-queue/internal/queue"
 )
 
@@ -14,6 +15,8 @@ type WorkerPool struct {
 	handlers   map[string]Handler
 	wg         *sync.WaitGroup
 }
+
+type Handler func(ctx context.Context, task *model.Task) (string, error)
 
 func NewWorkerPool(numWorkers int, queue *queue.TaskQueue) *WorkerPool {
 	wg := &sync.WaitGroup{}
