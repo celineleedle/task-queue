@@ -47,6 +47,8 @@ func TestParsePriority(t *testing.T) {
 			res, err := ParsePriority(tt.input)
 			if err != nil && !tt.wantErr {
 				t.Errorf("Got an error but did not expect one: %q", err.Error())
+			} else if err == nil && tt.wantErr {
+				t.Errorf("No error but wanted one")
 			}
 			if res != tt.want {
 				t.Errorf("Expected %d, got %d", tt.want, res)
