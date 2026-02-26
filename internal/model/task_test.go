@@ -4,92 +4,102 @@ import (
 	"testing"
 )
 
-func TestValidateCreateTaskDto(t *testing.T) {
-	dtos := []*CreateTaskDto{
-		&CreateTaskDto{
-			Type:     "",
-			Priority: "high",
-			Payload:  nil,
-			MaxTries: 10,
-		},
-		&CreateTaskDto{
-			Type:     "type",
-			Priority: "high",
-			Payload:  nil,
-			MaxTries: 10,
-		},
-		&CreateTaskDto{
-			Type:     "type",
-			Priority: "medium",
-			Payload:  nil,
-			MaxTries: 10,
-		},
-		&CreateTaskDto{
-			Type:     "type",
-			Priority: "med",
-			Payload:  nil,
-			MaxTries: 10,
-		},
-		&CreateTaskDto{
-			Type:     "type",
-			Priority: "low",
-			Payload:  nil,
-			MaxTries: 10,
-		},
-		&CreateTaskDto{
-			Type:     "type",
-			Priority: "unknown",
-			Payload:  nil,
-			MaxTries: 10,
-		},
-		&CreateTaskDto{
-			Type:     "type",
-			Priority: "unknown",
-			Payload:  nil,
-			MaxTries: 0,
-		},
-		&CreateTaskDto{
-			Type:     "type",
-			Priority: "med",
-			Payload:  nil,
-			MaxTries: 0,
-		},
-		&CreateTaskDto{
-			Type:     "",
-			Priority: "unknown",
-			Payload:  nil,
-			MaxTries: 0,
-		},
-	}
-	names := []string{
-		"test_type_empty",
-		"test_priority_high",
-		"test_priority_medium",
-		"test_priority_med",
-		"test_priority_low",
-		"test_priority_unknown",
-		"test_priority_unknown_maxtries_0",
-		"test_maxtries_0",
-		"text_type_empty_priority_unknown_maxtries_0",
-	}
-	wantErrs := []bool{true, false, false, false, false, true, true, true, true}
-
-	tests := make([]struct {
+func TestValidateTaskDto(t *testing.T) {
+	tests := []struct {
 		name    string
-		input   *CreateTaskDto
+		input   *TaskDto
 		wantErr bool
-	}, 0, 9)
-
-	for i := range 9 {
-		tests = append(tests, struct {
-			name    string
-			input   *CreateTaskDto
-			wantErr bool
-		}{
-			name:    names[i],
-			input:   dtos[i],
-			wantErr: wantErrs[i],
-		})
+	}{
+		{
+			"test_type_empty",
+			&TaskDto{
+				Type:     "",
+				Priority: "high",
+				Payload:  nil,
+				MaxTries: 10,
+			},
+			true,
+		},
+		{
+			"test_priority_high",
+			&TaskDto{
+				Type:     "type",
+				Priority: "high",
+				Payload:  nil,
+				MaxTries: 10,
+			},
+			false,
+		},
+		{
+			"test_priority_medium",
+			&TaskDto{
+				Type:     "type",
+				Priority: "medium",
+				Payload:  nil,
+				MaxTries: 10,
+			},
+			false,
+		},
+		{
+			"test_priority_med",
+			&TaskDto{
+				Type:     "type",
+				Priority: "med",
+				Payload:  nil,
+				MaxTries: 10,
+			},
+			false,
+		},
+		{
+			"test_priority_low",
+			&TaskDto{
+				Type:     "type",
+				Priority: "low",
+				Payload:  nil,
+				MaxTries: 10,
+			},
+			false,
+		},
+		{
+			"test_priority_unknown",
+			&TaskDto{
+				Type:     "type",
+				Priority: "unknown",
+				Payload:  nil,
+				MaxTries: 10,
+			},
+			true,
+		},
+		{
+			"test_priority_unknown_maxtries_0",
+			&TaskDto{
+				Type:     "type",
+				Priority: "unknown",
+				Payload:  nil,
+				MaxTries: 0,
+			},
+			true,
+		},
+		{
+			"test_maxtries_0",
+			&TaskDto{
+				Type:     "type",
+				Priority: "med",
+				Payload:  nil,
+				MaxTries: 0,
+			},
+			true,
+		},
+		{
+			"text_type_empty_priority_unknown_maxtries_0",
+			&TaskDto{
+				Type:     "",
+				Priority: "unknown",
+				Payload:  nil,
+				MaxTries: 0,
+			},
+			true,
+		},
 	}
 
 	for _, tt := range tests {
