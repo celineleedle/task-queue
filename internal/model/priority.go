@@ -23,8 +23,8 @@ func (p Priority) String() string {
 	}
 }
 
-func ParsePriority(priority string) (Priority, error) {
-	switch priority {
+func ParsePriority(p string) (Priority, error) {
+	switch p {
 	case "high":
 		return PriorityHigh, nil
 	case "med":
@@ -34,6 +34,6 @@ func ParsePriority(priority string) (Priority, error) {
 	case "low":
 		return PriorityLow, nil
 	default:
-		return 0, fmt.Errorf("malformed priority string: %q", priority)
+		return 0, fmt.Errorf("malformed priority string: %q", p)
 	}
 }
