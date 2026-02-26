@@ -2,6 +2,17 @@ package model
 
 import "fmt"
 
+type Status string
+
+const (
+	StatusPending    Status = "pending"
+	StatusProcessing Status = "processing"
+	StatusCompleted  Status = "completed"
+	StatusFailed     Status = "failed"
+	// StatusCanceled   Status = "canceled"
+	// StatusScheduled  Status = "scheduled"
+)
+
 type Priority int
 
 const (
