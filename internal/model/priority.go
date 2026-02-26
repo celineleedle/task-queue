@@ -19,7 +19,7 @@ func (p Priority) String() string {
 	case PriorityLow:
 		return "low"
 	default:
-		return "unknown" // should never be this
+		return fmt.Sprintf("unknown: %d", p) // should never be this
 	}
 }
 

@@ -3,10 +3,10 @@ package model
 import "fmt"
 
 type CreateTaskRequest struct {
-	Type       string         `json:"type"`
-	Priority   string         `json:"priority"`
-	Payload    map[string]any `json:"payload"`
-	MaxRetries int            `json:"max_retries"`
+	Type     string         `json:"type"`
+	Priority string         `json:"priority"`
+	Payload  map[string]any `json:"payload"`
+	MaxTries int            `json:"max_retries"`
 }
 
 func (c *CreateTaskRequest) Validate() error {
@@ -19,8 +19,8 @@ func (c *CreateTaskRequest) Validate() error {
 		return fmt.Errorf("error parsing priority string: %w", err)
 	}
 
-	if c.MaxRetries < 0 {
-		return fmt.Errorf("max retries must be a positive int: %d", c.MaxRetries)
+	if c.MaxTries < 1 {
+		return fmt.Errorf("max tries must be greater than one")
 	}
 
 	return nil

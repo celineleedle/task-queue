@@ -16,12 +16,12 @@ type Task struct {
 	Result  string         `json:"result,omitempty"`
 	Error   string         `json:"error,omitempty"`
 
-	Retries    int `json:"retries"`
-	MaxRetries int `json:"max_retries"`
+	Tries    int `json:"tries"`
+	MaxTries int `json:"max_tries"`
 }
 
 func (t *Task) IsTerminal() bool {
-	return t.Status == StatusCompleted || (t.Status == StatusFailed && t.Retries >= t.MaxRetries)
+	return t.Status == StatusCompleted || (t.Status == StatusFailed && t.Tries >= t.MaxTries)
 }
 
 func (t *Task) Duration() time.Duration {
