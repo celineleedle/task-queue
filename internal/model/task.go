@@ -23,14 +23,14 @@ type Task struct {
 	MaxTries int `json:"max_tries"`
 }
 
-type CreateTaskRequest struct {
+type TaskDto struct {
 	Type     string         `json:"type"`
 	Priority string         `json:"priority"`
 	Payload  map[string]any `json:"payload"`
 	MaxTries int            `json:"max_retries"`
 }
 
-func (c *CreateTaskRequest) Validate() error {
+func (c *TaskDto) Validate() error {
 	if c.Type == "" {
 		return fmt.Errorf("task type can not be empty")
 	}
