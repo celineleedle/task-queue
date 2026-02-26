@@ -23,18 +23,6 @@ type Task struct {
 	MaxTries int `json:"max_tries"`
 }
 
-func (t *Task) IsTerminal() bool {
-	return t.Status == StatusCompleted || (t.Status == StatusFailed && t.Tries >= t.MaxTries)
-}
-
-func (t *Task) Duration() time.Duration {
-	if t.StartedAt == nil || t.CompletedAt == nil {
-		return 0
-	}
-	duration := t.CompletedAt.Sub(*t.StartedAt)
-	return duration
-}
-
 type CreateTaskRequest struct {
 	Type     string         `json:"type"`
 	Priority string         `json:"priority"`
